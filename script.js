@@ -437,8 +437,40 @@ botaoTema.onclick = (e) => {
   raiz.dataset.theme = novo;
   try { localStorage.setItem("terco-tema", novo); } catch (err) {}
   atualizarBotaoTema();
+  atualizarCorBarra();
   e.currentTarget.blur();
 };
+
+/* ==========================================================
+   COR DO SITE (Azul / Vermelho)
+   ========================================================== */
+const botoesCor = document.querySelectorAll(".cor");
+
+function atualizarCorBarra() {
+  // cor da barra do navegador no celular acompanha o fundo
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = getComputedStyle(raiz).getPropertyValue("--bg").trim();
+}
+
+function aplicarCor(cor) {
+  if (cor === "vermelho") raiz.dataset.cor = "vermelho";
+  else delete raiz.dataset.cor;
+  botoesCor.forEach((b) =>
+    b.setAttribute("aria-pressed", String(b.dataset.cor === (cor === "vermelho" ? "vermelho" : "azul"))));
+  atualizarCorBarra();
+}
+
+aplicarCor(raiz.dataset.cor || "azul");
+
+botoesCor.forEach((b) => {
+  b.onclick = (e) => {
+    aplicarCor(b.dataset.cor);
+    try { localStorage.setItem("terco-cor", b.dataset.cor); } catch (err) {}
+    e.currentTarget.blur();
+  };
+});
+
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", atualizarCorBarra);
 
 /* ==========================================================
    MENU (gaveta em tela cheia no celular)

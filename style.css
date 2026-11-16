@@ -48,6 +48,82 @@
       color-scheme: dark;
     }
 
+    /* ----- Versão VERMELHA (identidade visual da paróquia) ----- */
+    :root[data-cor="vermelho"] {
+      --bg: #f5ebe4;
+      --ink: #3d0d11;
+      --muted: #8a6563;
+      --panel: #fcf7f2;
+      --line: #e6d1c8;
+      --future: #dcc5bd;
+      --done: #9b0a12;     /* vermelho da paróquia */
+      --cur: #e9be62;      /* amarelo da paróquia */
+      --chain: #c9aca4;
+      --halo: #e9be62;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root[data-cor="vermelho"]:not([data-theme="light"]) {
+        --bg: #2a080b;
+        --ink: #f7ead6;
+        --muted: #c39f99;
+        --panel: #3a0c11;
+        --line: #5c1d23;
+        --future: #61252b;
+        --done: #e9be62;
+        --cur: #ffd98a;
+        --chain: #52191f;
+        --halo: #ffc95e;
+      }
+    }
+
+    :root[data-cor="vermelho"][data-theme="dark"] {
+      --bg: #2a080b;
+      --ink: #f7ead6;
+      --muted: #c39f99;
+      --panel: #3a0c11;
+      --line: #5c1d23;
+      --future: #61252b;
+      --done: #e9be62;
+      --cur: #ffd98a;
+      --chain: #52191f;
+      --halo: #ffc95e;
+    }
+
+    /* seletor de cor (bolinhas Azul / Vermelho) */
+    .cores {
+      flex: none;
+      display: flex;
+      gap: 6px;
+      margin: 16px 24px 0 -16px;
+    }
+
+    .cor {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    .cor i {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #12141d;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+    }
+
+    .cor[data-cor="vermelho"] i { background: #9b0a12; }
+
+    .cor[aria-pressed="true"] { border-color: var(--done); border-width: 2px; padding: 7px 11px; }
+
+    .cor:focus-visible { outline: 3px solid var(--halo); outline-offset: 3px; }
+
     /* ==========================================================
        2. BASE
        ========================================================== */
@@ -332,6 +408,8 @@
       /* no celular o botão de tema mostra só o ícone */
       .theme-btn { padding: 8px 10px; }
       .theme-btn span { display: none; }
+      .cor span { display: none; }
+      .menu .cor span { display: inline; }
     }
 
     /* ==========================================================
@@ -554,6 +632,8 @@
   .menu .font-controls { order: 6; padding: 0; gap: 8px; }
   #rot-tema      { order: 7; }
   .menu .theme-btn { order: 8; }
+  .menu .cores   { order: 8; margin: 10px 0 0; }
+  .menu .cor     { flex: 1; justify-content: center; min-height: 48px; border-radius: 12px; font-size: 1.2rem; }
   .menu-reset    { order: 9; }
 
   .menu .modo { min-height: 48px; font-size: 1.2rem; }
